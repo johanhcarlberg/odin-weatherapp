@@ -5,16 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><%= htmlWebpackPlugin.options.title %></title>
-    
-    <link rel="stylesheet" href="style.css" type="text/css">
 </head>
 <body>
     <div class="wrapper">
         <h2>Weather App</h2>
-        <form action="" novalidate>
-            <input type="text" name="location" id="location" placeholder="Search location">
-            <button type="submit">Search</button>
-        </form>
+        <div class="location-search">
+            <form id="location-form" action="" novalidate>
+                <input id="location-input" type="text" name="location" id="location" placeholder="Search location">
+                <button type="submit">Search</button>
+            </form>
+            <div id="location-error" class="error-text">Test</div>
+        </div>
     </div>
 </body>
 </html>
