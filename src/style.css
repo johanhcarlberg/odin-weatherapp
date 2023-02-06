@@ -1,0 +1,29 @@
+body {
+    display: grid;
+    justify-items: center;
+}
+
+.wrapper {
+    display: grid;
+    width: 60%;
+}
+
+form {
+    justify-self: start;
+    width: 50%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 10px;
+}
+
+form input {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #999;
+}
+
+form button {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 1px solid #999;
+}

@@ -1,3 +1,5 @@
+import './style.css';
+
 const { getWeather, getLocationFromString } = require("./weather");
 
 console.log('script.js loaded');

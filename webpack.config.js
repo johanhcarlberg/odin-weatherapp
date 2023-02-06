@@ -1,5 +1,6 @@
 const path = require('path');
 const Dotenv = require('dotenv-webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -11,7 +12,14 @@ module.exports = {
     },
     devtool: 'inline-source-map',
     plugins: [
-        new Dotenv()
+        new Dotenv(),
+        new HtmlWebpackPlugin(
+            {
+                filename: 'index.html',
+                template: './src/index.html',
+                title: 'Weather App',
+            }
+        )
     ],  
     module: {
         rules: [
