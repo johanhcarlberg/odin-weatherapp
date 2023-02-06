@@ -1,5 +1,5 @@
 import './style.css';
-import { getWeather, getLocationFromString } from './weather';
+import { getWeather, getLocationFromString, getWeatherForecast } from './weather';
 
 console.log('script.js loaded');
 
@@ -33,6 +33,14 @@ async function getWeatherForLocation(location) {
     console.log(weather);
     weatherObj.weather = {};
     Object.assign(weatherObj.weather,weather.main,weather.weather[0]);
+    console.log(weatherObj);
+
+    const forecast = await getWeatherForecast(locations[0].lat, locations[0].lon)
+    .catch((err) => {
+        locationError.textContent = "Couldn't get forecast for searched location";
+    })
+    weatherObj.forecast = forecast.list;
+    console.log(forecast);
     console.log(weatherObj);
 }
 
