@@ -8,22 +8,40 @@ body {
     width: 60%;
 }
 
-form {
+.location-search {
     justify-self: start;
-    width: 50%;
+    width: 60%;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+}
+
+form {
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 10px;
 }
 
 form input {
+    grid-column: 1;
     padding: 5px 10px;
     border-radius: 10px;
     border: 1px solid #999;
 }
 
 form button {
+    grid-column: 2;
     padding: 5px 10px;
     border-radius: 10px;
     border: 1px solid #999;
+}
+
+#location-error {
+    
+}
+
+.error-text {
+    color: rgb(231, 44, 44);
+    font-style: italic;
+    font-size: 14px;
 }
