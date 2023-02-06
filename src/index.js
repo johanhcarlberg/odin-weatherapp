@@ -1,5 +1,7 @@
+import CurrentWeatherComponent from './currentWeatherComponent';
 import './style.css';
 import { getWeather, getLocationFromString, getWeatherForecast } from './weather';
+import WeatherData from './weatherData';
 
 console.log('script.js loaded');
 
@@ -8,40 +10,36 @@ const locationInput = locationForm.querySelector('#location-input')
 const locationError = document.querySelector('#location-error');
 locationForm.addEventListener('submit', (e) => onLocationFormSubmit(e));
 
+const weatherContentDiv = document.querySelector('.weather-content');
+const forecastDiv = document.querySelector('.weather-forecast');
+let currentWeatherEl = null;
+
+
 (async () => {
     await getWeatherForLocation('Stockholm');
 })();
 
 async function getWeatherForLocation(location) {
-    const weatherObj = {};
-    const locations = await getLocationFromString(location)
-    .catch((err) => {
-        console.log(err);
-        locationError.textContent = "Couldn't find location";
-    });
-    console.log(locations);
-    weatherObj.location = {
-        country:locations[0].country,
-        lat:locations[0].lat,
-        lon:locations[0].lon,
-        name:locations[0].name
-    };
-    const weather = await getWeather(locations[0].lat, locations[0].lon)
-    .catch((err) => {
-        locationError.textContent = "Couldn't get weather for searched location";
-    })
-    console.log(weather);
-    weatherObj.weather = {};
-    Object.assign(weatherObj.weather,weather.main,weather.weather[0]);
-    console.log(weatherObj);
+    removeCurrentWeather();
+    const weatherData = new WeatherData(location);
+    addCurrentWeather(weatherData);
 
-    const forecast = await getWeatherForecast(locations[0].lat, locations[0].lon)
-    .catch((err) => {
-        locationError.textContent = "Couldn't get forecast for searched location";
-    })
-    weatherObj.forecast = forecast.list;
-    console.log(forecast);
-    console.log(weatherObj);
+    await weatherData.init();
+    const forecastLoadingDiv = document.createElement('div');
+    forecastLoadingDiv.classList.add('loading');
+    forecastLoadingDiv.textContent = 'Loading forecast...';
+    forecastDiv.appendChild(forecastLoadingDiv);
+}
+
+function addCurrentWeather(weatherData) {
+    currentWeatherEl = new CurrentWeatherComponent(weatherData);
+    weatherContentDiv.appendChild(currentWeatherEl);
+}
+
+function removeCurrentWeather() {
+    if (currentWeatherEl) {
+        currentWeatherEl.remove();
+    }
 }
 
 function onLocationFormSubmit(e) {
