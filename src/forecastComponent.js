@@ -6,4 +6,16 @@ export default class ForecastComponent {
         title.textContent = 'Weather Forecast';
         this.element.appendChild(title);
     }
+
+    renderLoading() {
+        const forecastContent = this.element.querySelector('.forecast-content');
+        if (forecastContent) {
+            forecastContent.remove();
+        }
+
+        const forecastLoadingDiv = document.createElement('div');
+        forecastLoadingDiv.classList.add('loading');
+        forecastLoadingDiv.textContent = 'Loading forecast...';
+        this.element.appendChild(forecastLoadingDiv);
+    }
 }
