@@ -1,4 +1,5 @@
 import CurrentWeatherComponent from './currentWeatherComponent';
+import ForecastComponent from './forecastComponent';
 import './style.css';
 import { getWeather, getLocationFromString, getWeatherForecast } from './weather';
 import WeatherData from './weatherData';
@@ -13,6 +14,7 @@ locationForm.addEventListener('submit', (e) => onLocationFormSubmit(e));
 const weatherContentDiv = document.querySelector('.weather-content');
 const forecastDiv = document.querySelector('.weather-forecast');
 let currentWeatherEl = null;
+let forecastEl = null;
 
 
 (async () => {
@@ -21,14 +23,12 @@ let currentWeatherEl = null;
 
 async function getWeatherForLocation(location) {
     removeCurrentWeather();
+    removeForecast();
     const weatherData = new WeatherData(location);
     addCurrentWeather(weatherData);
+    addForecast(weatherData);
 
     await weatherData.init();
-    const forecastLoadingDiv = document.createElement('div');
-    forecastLoadingDiv.classList.add('loading');
-    forecastLoadingDiv.textContent = 'Loading forecast...';
-    forecastDiv.appendChild(forecastLoadingDiv);
 }
 
 function addCurrentWeather(weatherData) {
@@ -36,9 +36,20 @@ function addCurrentWeather(weatherData) {
     weatherContentDiv.appendChild(currentWeatherEl);
 }
 
+function addForecast(weatherData) {
+    forecastEl = new ForecastComponent(weatherData);
+    weatherContentDiv.appendChild(forecastEl);
+}
+
 function removeCurrentWeather() {
     if (currentWeatherEl) {
         currentWeatherEl.remove();
+    }
+}
+
+function removeForecast() {
+    if (forecastEl) {
+        forecastEl.remove();
     }
 }
 
