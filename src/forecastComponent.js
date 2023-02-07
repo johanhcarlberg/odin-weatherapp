@@ -49,13 +49,60 @@ export default class ForecastComponent {
         }
         console.log(forecastPerDay);
         const forecastList = document.createElement('ul');
+        forecastList.classList.add('forecast-list');
+        const forecastListHeaders = document.createElement('li');
+        const dateHeader = document.createElement('span');
+        dateHeader.textContent = 'Date';
+        forecastListHeaders.appendChild(dateHeader);
+
+        const tempHeader = document.createElement('span');
+        tempHeader.textContent = 'Temperature (max, min)';
+        forecastListHeaders.appendChild(tempHeader);
+
+        forecastList.appendChild(forecastListHeaders);
         for (let key of Object.keys(forecastPerDay)) {
+
+
             const listItem = document.createElement('li');
-            listItem.textContent = key;
+            listItem.classList.add('forecast-card');
+
+            const dateDiv = document.createElement('div');
+            dateDiv.textContent = key;
+            dateDiv.classList.add('forecast-date');
+            listItem.appendChild(dateDiv);
+
+            const tempDiv = document.createElement('div');
+            tempDiv.classList.add('forecast-temperature');
+
+            const maxTempSpan = document.createElement('span');
+            const maxTemp = this.getMaxTemp(forecastPerDay[key].map((item) => item.main.temp_max));
+            maxTempSpan.textContent = maxTemp;
+            tempDiv.appendChild(maxTempSpan);
+            
+
+            const minTempSpan = document.createElement('span');
+            const minTemp = this.getMinTemp(forecastPerDay[key].map((item) => item.main.temp_min));
+            minTempSpan.textContent = minTemp;
+            tempDiv.appendChild(minTempSpan);
+
+            listItem.appendChild(tempDiv);
+
             forecastList.appendChild(listItem);
         }
         forecastContentDiv.appendChild(forecastList);
 
         this.element.appendChild(forecastContentDiv);
+    }
+
+    getMaxTemp(temperatures) {
+        return temperatures.sort((a, b) => {
+            return b - a;
+        })[0];
+    }
+
+    getMinTemp(temperatures) {
+        return temperatures.sort((a, b) => {
+            return a - b;
+        })[0];
     }
 }
