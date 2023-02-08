@@ -89,7 +89,7 @@ header {
     padding: 0;
 
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: 1fr 1fr 1fr;
     align-items: stretch;
 }
 
@@ -98,6 +98,8 @@ header {
     display: grid;
     grid-template-columns: subgrid;
     gap: 0 15px;
+    cursor: pointer;
+    user-select: none;
 }
 
 .forecast-list li.forecast-card {
@@ -118,5 +120,54 @@ header {
 }
 
 .forecast-temperature span:after {
+    content: "\00B0";
+}
+
+
+
+.hour-forecast {
+    margin-top: 1rem;
+    grid-column: 1 / -1;
+    border-collapse: collapse;
+    table-layout: fixed;
+    user-select: text;
+    cursor: default;
+}
+
+.hour-forecast tr:first-of-type {
+    background-color: #fff !important;
+}
+
+.hour-forecast.hidden {
+    display: none;
+}
+
+.hour-forecast th {
+    text-align: center;
+}
+
+.hour-forecast tr:nth-child(even) {
+    background-color: #f5f5f5;
+}
+
+.hour-forecast tr:nth-child(odd) {
+    background-color: #f3f3f3;
+}
+
+.hour-forecast td {
+    padding: 10px 15px;
+}
+
+.cell-temp,
+.cell-humidity {
+    text-align: right;
+}
+
+.cell-time {
+    text-align: center;
+    width: 30%;
+}
+
+.cell-temp:after {
     content: "\00B0";
 }

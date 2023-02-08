@@ -47,7 +47,6 @@ export default class ForecastComponent {
             }
             forecastPerDay[itemDate].push(forecastItem);
         }
-        console.log(forecastPerDay);
         const forecastList = document.createElement('ul');
         forecastList.classList.add('forecast-list');
         const forecastListHeaders = document.createElement('li');
@@ -61,8 +60,6 @@ export default class ForecastComponent {
 
         forecastList.appendChild(forecastListHeaders);
         for (let key of Object.keys(forecastPerDay)) {
-
-
             const listItem = document.createElement('li');
             listItem.classList.add('forecast-card');
 
@@ -79,7 +76,6 @@ export default class ForecastComponent {
             maxTempSpan.textContent = maxTemp;
             tempDiv.appendChild(maxTempSpan);
             
-
             const minTempSpan = document.createElement('span');
             const minTemp = this.getMinTemp(forecastPerDay[key].map((item) => item.main.temp_min));
             minTempSpan.textContent = minTemp;
@@ -88,10 +84,72 @@ export default class ForecastComponent {
             listItem.appendChild(tempDiv);
 
             forecastList.appendChild(listItem);
+            const forecastTable = this.createHourForecast(forecastPerDay[key]);
+            listItem.addEventListener('click', () => {
+                forecastTable.classList.toggle('hidden');
+            })
+            listItem.appendChild(forecastTable);
         }
         forecastContentDiv.appendChild(forecastList);
 
         this.element.appendChild(forecastContentDiv);
+    }
+
+    createHourForecast(day) {
+        console.log(day);
+        const hourForecastTable = document.createElement('table');
+        hourForecastTable.classList.add('hour-forecast');
+
+        const headerRow = document.createElement('tr');
+
+        const timeHeader = document.createElement('th');
+        timeHeader.textContent = 'Time';
+        headerRow.appendChild(timeHeader);
+
+        
+        const tempHeader = document.createElement('th');
+        tempHeader.textContent = "Temperature";
+        headerRow.appendChild(tempHeader);
+
+        const feelsLikeHeader = document.createElement('th');
+        feelsLikeHeader.textContent = "Feels like";
+        headerRow.appendChild(feelsLikeHeader);
+
+        const humidityHeader = document.createElement('th');
+        humidityHeader.textContent = "Humidity";
+        headerRow.appendChild(humidityHeader);
+
+        hourForecastTable.appendChild(headerRow);
+
+        
+        for (let weatherObj of day) {
+            const forecastRow = document.createElement('tr');
+
+            const timeCell = document.createElement('td');
+            timeCell.classList.add('cell-time');
+            timeCell.textContent = weatherObj.dt_txt;
+            forecastRow.appendChild(timeCell);
+
+            const tempCell = document.createElement('td');
+            tempCell.textContent = weatherObj.main.temp;
+            tempCell.classList.add('cell-temp');
+            forecastRow.appendChild(tempCell);
+
+            const feelsLikeCell = document.createElement('td');
+            feelsLikeCell.textContent = weatherObj.main.feels_like;
+            feelsLikeCell.classList.add('cell-temp');
+            forecastRow.appendChild(feelsLikeCell);
+
+            const humidityCell = document.createElement('td');
+            humidityCell.textContent = weatherObj.main.humidity;
+            humidityCell.classList.add('cell-humidity');
+            forecastRow.appendChild(humidityCell);
+
+            hourForecastTable.appendChild(forecastRow);
+        }
+
+        hourForecastTable.classList.add('hidden');
+        return hourForecastTable;
     }
 
     getMaxTemp(temperatures) {
