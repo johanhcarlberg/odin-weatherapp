@@ -16,7 +16,6 @@ export default class ForecastComponent {
     }
 
     onWeatherDataLoad() {
-        console.log('ForecastComponent weatherData loaded');
         this.renderForecast();
     }
 

@@ -1,10 +1,7 @@
 import CurrentWeatherComponent from './currentWeatherComponent';
 import ForecastComponent from './forecastComponent';
 import './style.css';
-import { getWeather, getLocationFromString, getWeatherForecast } from './weather';
 import WeatherData from './weatherData';
-
-console.log('script.js loaded');
 
 const locationForm = document.querySelector('#location-form');
 const locationInput = locationForm.querySelector('#location-input')
@@ -12,7 +9,6 @@ const locationError = document.querySelector('#location-error');
 locationForm.addEventListener('submit', (e) => onLocationFormSubmit(e));
 
 const weatherContentDiv = document.querySelector('.weather-content');
-const forecastDiv = document.querySelector('.weather-forecast');
 let currentWeatherEl = null;
 let forecastEl = null;
 
@@ -57,7 +53,7 @@ function onLocationFormSubmit(e) {
     e.preventDefault();
     locationError.textContent = '';
     const locationInputVal = locationInput.value;
-    console.log(locationInputVal);
+    
     if (locationInputVal.length === 0) {
         locationError.textContent = 'Please enter a location';
         return;
@@ -66,7 +62,7 @@ function onLocationFormSubmit(e) {
     (async () => {
         await getWeatherForLocation(locationInputVal)
         .catch((err) => {
-            console.log(err);
+            locationError.textContent = `Couldn't load weather data for "${locationInputVal}".`
         });
     })();
     

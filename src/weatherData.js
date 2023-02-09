@@ -43,8 +43,9 @@ export default class WeatherData {
     async init() {
         const locations = await getLocationFromString(this.location.name)
         .catch((err) => {
-            console.log(err);
+            throw(err);
         });
+
         this.location.country = locations[0].country;
         this.location.lat = locations[0].lat;
         this.location.lon = locations[0].lon;
@@ -57,7 +58,6 @@ export default class WeatherData {
         this.weather.date = date;
         Object.assign(this.weather,weather.main,weather.weather[0]);
         this.forecast = forecast.list;
-        console.log(this);
         this.emit('onLoad');
     }
 }

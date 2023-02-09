@@ -16,12 +16,10 @@ export default class CurrentWeatherComponent {
     }
 
     onWeatherDataLoad() {
-        console.log('CurrentWeatherComponent weatherData loaded');
         this.renderWeather();
     }
 
     renderLoading() {
-        console.log(this.element);
         const weatherContent = this.element.querySelector('.current-weather-content');
         if (weatherContent) {
             weatherContent.remove();
