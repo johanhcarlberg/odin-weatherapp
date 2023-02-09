@@ -146,12 +146,12 @@ export default class ForecastComponent {
 
             const tempCell = document.createElement('td');
             tempCell.textContent = weatherObj.main.temp;
-            tempCell.classList.add('cell-temp');
+            tempCell.classList.add('cell-temp', 'temperature');
             forecastRow.appendChild(tempCell);
 
             const feelsLikeCell = document.createElement('td');
             feelsLikeCell.textContent = weatherObj.main.feels_like;
-            feelsLikeCell.classList.add('cell-temp');
+            feelsLikeCell.classList.add('cell-temp', 'temperature');
             forecastRow.appendChild(feelsLikeCell);
 
             const humidityCell = document.createElement('td');
