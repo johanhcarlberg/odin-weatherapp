@@ -38,6 +38,11 @@ export default class CurrentWeatherComponent {
         if (loadingDiv) {
             loadingDiv.remove();
         } 
+        const locationSpan = document.createElement('span');
+        locationSpan.classList.add('current-weather-location');
+        locationSpan.textContent = this.weatherData.location.name;
+        this.element.appendChild(locationSpan);
+
         const dateSpan = document.createElement('span');
         dateSpan.classList.add('current-weather-datetime');
         dateSpan.textContent = format(this.weatherData.weather.date, 'EEEE MMM. dd - HH:mm');
@@ -45,33 +50,49 @@ export default class CurrentWeatherComponent {
 
         const weatherContentDiv = document.createElement('div');
         weatherContentDiv.classList.add('current-weather-content');
+
+        const weatherHeader = document.createElement('span');
+        weatherHeader.textContent = 'Weather';
+        weatherHeader.classList.add('current-weather-content-header');
+        weatherContentDiv.appendChild(weatherHeader);
+
+        const tempHeader = document.createElement('span');
+        tempHeader.textContent = 'Temperature';
+        tempHeader.classList.add('current-weather-content-header');
+        weatherContentDiv.appendChild(tempHeader);
+
+        const feelsLikeHeader = document.createElement('span');
+        feelsLikeHeader.textContent = 'Feels like';
+        feelsLikeHeader.classList.add('current-weather-content-header');
+        weatherContentDiv.appendChild(feelsLikeHeader);
+
+        const humidityHeader = document.createElement('span');
+        humidityHeader.textContent = 'Humidity';
+        humidityHeader.classList.add('current-weather-content-header');
+        weatherContentDiv.appendChild(humidityHeader);
+
+        const currentWeatherCard = document.createElement('div');
+        currentWeatherCard.classList.add('current-weather-card');
     
         const descSpan = document.createElement('span');
         descSpan.textContent = `${this.weatherData.weather.main} - ${this.weatherData.weather.description}`;
-        weatherContentDiv.appendChild(descSpan);
+        currentWeatherCard.appendChild(descSpan);
     
-        const tempDiv = document.createElement('div');
-        tempDiv.classList.add('temperatures');
-        weatherContentDiv.appendChild(tempDiv);
         const tempSpan = document.createElement('span');
-        tempSpan.textContent = `Temperature: ${this.weatherData.weather.temp}`;
-        tempDiv.appendChild(tempSpan);
-    
-        const tempMaxSpan = document.createElement('span');
-        tempMaxSpan.textContent = `Maximum: ${this.weatherData.weather.temp_max}`;
-        tempDiv.appendChild(tempMaxSpan);
-    
-        const tempMinSpan = document.createElement('span');
-        tempMinSpan.textContent = `Minimum: ${this.weatherData.weather.temp_min}`;
-        tempDiv.appendChild(tempMinSpan);
+        tempSpan.textContent = `${this.weatherData.weather.temp}`;
+        tempSpan.classList.add('temperature');
+        currentWeatherCard.appendChild(tempSpan);
     
         const feelsLikeSpan = document.createElement('span');
-        feelsLikeSpan.textContent = `Feels like: ${this.weatherData.weather.feels_like}`;
-        tempDiv.appendChild(feelsLikeSpan);
+        feelsLikeSpan.textContent = `${this.weatherData.weather.feels_like}`;
+        feelsLikeSpan.classList.add('temperature');
+        currentWeatherCard.appendChild(feelsLikeSpan);
     
         const humiditySpan = document.createElement('span');
         humiditySpan.textContent = this.weatherData.weather.humidity;
-        weatherContentDiv.appendChild(humiditySpan);
+        currentWeatherCard.appendChild(humiditySpan);
+
+        weatherContentDiv.appendChild(currentWeatherCard);
     
         this.element.appendChild(weatherContentDiv);
     }
