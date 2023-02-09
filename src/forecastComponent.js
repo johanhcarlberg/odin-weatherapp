@@ -109,7 +109,6 @@ export default class ForecastComponent {
     }
 
     createHourForecast(day) {
-        console.log(day);
         const hourForecastTable = document.createElement('table');
         hourForecastTable.classList.add('hour-forecast');
 
