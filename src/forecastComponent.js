@@ -1,3 +1,5 @@
+import { format, isToday, isTomorrow } from "date-fns";
+
 export default class ForecastComponent {
     constructor(weatherData) {
         this.element = document.createElement('div');
@@ -64,7 +66,19 @@ export default class ForecastComponent {
             listItem.classList.add('forecast-card');
 
             const dateDiv = document.createElement('div');
-            dateDiv.textContent = key;
+            const date = new Date(key);
+            const daySpan = document.createElement('span');
+            if (isToday(date)) {
+                daySpan.textContent = 'Today';
+            } else if (isTomorrow(date)) {
+                daySpan.textContent = 'Tomorrow';
+            } else {
+                daySpan.textContent = format(date, 'EEEE');
+            }
+            dateDiv.appendChild(daySpan);
+            const dateSpan = document.createElement('span');
+            dateSpan.textContent = format(date, 'MMM. dd');
+            dateDiv.appendChild(dateSpan);
             dateDiv.classList.add('forecast-date');
             listItem.appendChild(dateDiv);
 
