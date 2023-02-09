@@ -38,7 +38,7 @@ export default class CurrentWeatherComponent {
         } 
         const locationSpan = document.createElement('span');
         locationSpan.classList.add('current-weather-location');
-        locationSpan.textContent = this.weatherData.location.name;
+        locationSpan.textContent = `${this.weatherData.location.name}, ${this.weatherData.location.country}`;
         this.element.appendChild(locationSpan);
 
         const dateSpan = document.createElement('span');
