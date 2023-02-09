@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export default class CurrentWeatherComponent {
     constructor(weatherData) {
         this.element = document.createElement('div');
@@ -36,6 +38,10 @@ export default class CurrentWeatherComponent {
         if (loadingDiv) {
             loadingDiv.remove();
         } 
+        const dateSpan = document.createElement('span');
+        dateSpan.classList.add('current-weather-datetime');
+        dateSpan.textContent = format(this.weatherData.weather.date, 'EEEE MMM. dd - HH:mm');
+        this.element.appendChild(dateSpan);
 
         const weatherContentDiv = document.createElement('div');
         weatherContentDiv.classList.add('current-weather-content');
