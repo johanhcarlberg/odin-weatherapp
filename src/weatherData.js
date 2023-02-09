@@ -1,3 +1,4 @@
+import { toDate } from "date-fns";
 import { getLocationFromString, getWeather, getWeatherForecast } from "./weather";
 
 export default class WeatherData {
@@ -47,11 +48,13 @@ export default class WeatherData {
         this.location.country = locations[0].country;
         this.location.lat = locations[0].lat;
         this.location.lon = locations[0].lon;
-
+        
         const [weather, forecast] = await Promise.all([
             getWeather(this.location.lat, this.location.lon),
             getWeatherForecast(this.location.lat, this.location.lon)
         ]);
+        const date = new Date(weather.dt * 1000);
+        this.weather.date = date;
         Object.assign(this.weather,weather.main,weather.weather[0]);
         this.forecast = forecast.list;
         console.log(this);
