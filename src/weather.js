@@ -1,5 +1,5 @@
 const APPID = process.env.APPID;
-const GEO_API_URL = 'http://api.openweathermap.org/geo/1.0/direct';
+const GEO_API_URL = 'https://api.openweathermap.org/geo/1.0/direct';
 const BASE_API_URL = 'https://api.openweathermap.org/data/2.5';
 const WEATHER_API_URL = `${BASE_API_URL}/weather`;
 const FORECAST_API_URL = `${BASE_API_URL}/forecast`
