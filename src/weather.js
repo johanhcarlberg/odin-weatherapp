@@ -5,6 +5,7 @@ const WEATHER_API_URL = `${BASE_API_URL}/weather`;
 const FORECAST_API_URL = `${BASE_API_URL}/forecast`
 
 export async function getLocationFromString(location) {
+    try {
     const query = `${GEO_API_URL}?q=${location}&appid=${APPID}`;
     const response = await fetch(query, {mode: 'cors'});
     if (!response.ok) {
@@ -12,9 +13,13 @@ export async function getLocationFromString(location) {
     }
     const result = await response.json();
     return result;
+    } catch(err) {
+        throw new Error('Error fetching location data');
+    }
 }
 
 export async function getWeather(lat, lon) {
+    try {
     const query = `${WEATHER_API_URL}?lat=${lat}&lon=${lon}&units=metric&appid=${APPID}`;
     const response = await fetch(query, {mode: 'cors'});
     if (!response.ok) {
@@ -22,9 +27,13 @@ export async function getWeather(lat, lon) {
     }
     const result = await response.json();
     return result;
+    } catch(err) {
+        throw new Error('Error fetching weather data');
+    }
 }
 
 export async function getWeatherForecast(lat, lon) {
+    try {
     const query = `${FORECAST_API_URL}?lat=${lat}&lon=${lon}&units=metric&appid=${APPID}`;
     const response = await fetch(query, {mode: 'cors'});
     if (!response.ok) {
@@ -32,4 +41,7 @@ export async function getWeatherForecast(lat, lon) {
     }
     const result = await response.json();
     return result;
+    } catch(err) {
+        throw new Error('Error fetching weather forecast data');
+    }
 }
